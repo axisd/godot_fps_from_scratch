@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://c448ftphnjhco"]
+
+[ext_resource type="Script" path="res://Players/player.gd" id="1_6my00"]
+[ext_resource type="Script" path="res://Players/CameraNode.gd" id="2_dvg3d"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_llil1"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_6my00")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_llil1")
+
+[node name="CameraNode" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("2_dvg3d")
+
+[node name="Camera" type="Camera3D" parent="CameraNode"]
+fov = 80.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="CameraNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 0)
+light_color = Color(0.685737, 0.786627, 0.867356, 1)
+light_energy = 2.0
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 20.0
+spot_angle = 20.0

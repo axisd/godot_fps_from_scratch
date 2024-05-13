@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://bqgebmx4pnn10"]
+
+[ext_resource type="Texture2D" uid="uid://dl2cd27pn5vld" path="res://Assets/Textures/starmap_g4k.jpg" id="1_osoro"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_w8ucu"]
+panorama = ExtResource("1_osoro")
+
+[sub_resource type="Sky" id="Sky_j1raf"]
+sky_material = SubResource("PanoramaSkyMaterial_w8ucu")
+
+[sub_resource type="Environment" id="Environment_1k0pc"]
+background_mode = 2
+sky = SubResource("Sky_j1raf")
+
+[node name="WorldEnvironment" type="WorldEnvironment"]
+environment = SubResource("Environment_1k0pc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 6, 0)
+sky_mode = 2
