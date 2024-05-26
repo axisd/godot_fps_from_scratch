@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="LeveA"
+run/main_scene="res://Assets/Levels/level_a.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

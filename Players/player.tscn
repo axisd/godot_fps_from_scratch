@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Players/player.gd" id="1_6my00"]
 [ext_resource type="Script" path="res://Players/CameraNode.gd" id="2_dvg3d"]
-[ext_resource type="PackedScene" uid="uid://7alng67uvgtk" path="res://Assets/Models/shotgun/shotgun.tscn" id="3_j05yo"]
+[ext_resource type="PackedScene" uid="uid://dgonasyuauohu" path="res://Scenes/Weapons/Shotgun/shotgun.tscn" id="3_b436v"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_llil1"]
 
@@ -31,5 +31,4 @@ spot_angle = 20.0
 
 [node name="GunNode" type="Node3D" parent="CameraNode"]
 
-[node name="shotgun" parent="CameraNode/GunNode" instance=ExtResource("3_j05yo")]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0.297512, -0.264079, -0.6813)
+[node name="shotgun" parent="CameraNode/GunNode" instance=ExtResource("3_b436v")]
