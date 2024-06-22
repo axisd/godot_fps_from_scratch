@@ -58,6 +58,15 @@ func fire():
 		$FireSound.play()
 		
 		print("ammo in gun: ", ammo_in_gun)
+		
+		for ray : RayCast3D in $RayNode.get_children():
+			if ray.is_colliding():
+				print(ray.get_collider())
+				if ray.get_collider().is_in_group("enemy"):
+					ray.get_collider().take_damage(10)
+
+				if ray.get_collider().is_in_group("critical"):
+					ray.get_collider().take_damage(20)				
 	else:
 		$MisFireSound.play()
 		print("no ammo in gun")

@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_llil1"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["player"]]
 script = ExtResource("1_6my00")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
@@ -30,6 +30,7 @@ spot_range = 20.0
 spot_angle = 20.0
 
 [node name="GunNode" type="Node3D" parent="CameraNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.1, -0.25)
 
 [node name="shotgun" parent="CameraNode/GunNode" instance=ExtResource("3_b436v")]
 transform = Transform3D(0.2, 0, 0, 0, 0.199835, -0.00813093, 0, 0.00813093, 0.199835, -0.2, -0.2, -0.1)
