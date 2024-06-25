@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://cq8qf8k5crvj1"]
+
+[ext_resource type="Script" path="res://Scenes/Monsters/blood_spray_enemy.gd" id="1_gq8ny"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4g3yx"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_202al"]
+albedo_color = Color(0.817668, 0.158823, 0.27219, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lmm4w"]
+material = SubResource("StandardMaterial3D_202al")
+radius = 0.095
+height = 0.15
+radial_segments = 20
+rings = 16
+
+[node name="BloodSpray" type="GPUParticles3D"]
+amount = 40
+lifetime = 3.0
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_4g3yx")
+draw_pass_1 = SubResource("SphereMesh_lmm4w")
+script = ExtResource("1_gq8ny")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
