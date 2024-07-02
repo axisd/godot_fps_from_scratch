@@ -9,8 +9,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	update_ammo()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -47,6 +46,8 @@ func reload():
 	$ReloadSound.play()
 	print("ammo in inventory: ", ammo_in_inventory)
 	print("ammo in gun: ", ammo_in_gun)
+	
+	update_ammo()
 		
 func fire():
 	can_fire = false
@@ -56,6 +57,8 @@ func fire():
 		$GPUParticles3D.emitting = true
 		$AnimationPlayer.play("Fire")
 		$FireSound.play()
+		
+		update_ammo()
 		
 		print("ammo in gun: ", ammo_in_gun)
 		
@@ -73,6 +76,8 @@ func fire():
 		can_fire = true
 		return
 
+func update_ammo():
+	get_tree().call_group("Camera", "update_ammo", ammo_in_gun, ammo_in_inventory)
 
 func _on_animation_player_animation_finished(anim_name):
 	print("anim name: ", anim_name)

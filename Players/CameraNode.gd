@@ -18,3 +18,6 @@ func _input(event):
 		var angle : float = rad_to_deg(get_rotation().x) + (event.relative.y * player.mouse_senc)
 		if angle < ANGLE_MAX and angle > ANGLE_MIN:
 			rotate_x(deg_to_rad(event.relative.y * player.mouse_senc))
+
+func update_ammo(in_gun : int, in_inv : int):
+	$Camera/UI/Ammo.text = str(in_gun) + "/" + str(in_inv)

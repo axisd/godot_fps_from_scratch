@@ -2,6 +2,8 @@ extends CharacterBody3D
 
 @export var mouse_senc : float = -0.10
 
+@onready var health : int = 100
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
@@ -39,3 +41,21 @@ func _physics_process(delta):
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+func take_damage(damage : int):
+	health -= damage
+	update_health()
+	if health <= 0:
+		print("we are death")
+
+func update_health():
+	$CameraNode/Camera/UI/HP.text = str(health)
+
+
+func take_heal(hp : int):
+	if health < 100:
+		if 100 - health >= hp:
+			health += hp
+		else:
+			health = 100
+	update_health()

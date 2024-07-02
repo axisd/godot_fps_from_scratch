@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0f6dsgvajojw"]
+
+[ext_resource type="Texture2D" uid="uid://b0eb4fvpyr1qe" path="res://Scenes/Weapons/Shotgun/Pic/shotgun_ico.png" id="1_jutrn"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HP" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 550.0
+offset_right = -1092.0
+offset_bottom = -75.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HP
+"
+
+[node name="Ammo" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1000.0
+offset_top = 580.0
+offset_right = 1051.0
+offset_bottom = 603.0
+text = "Ammo"
+
+[node name="CurrentWeapon" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 858.0
+offset_top = 553.0
+offset_right = 1058.0
+offset_bottom = 603.0
+texture = ExtResource("1_jutrn")
