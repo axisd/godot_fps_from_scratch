@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c448ftphnjhco"]
+[gd_scene load_steps=5 format=3 uid="uid://c448ftphnjhco"]
 
 [ext_resource type="Script" path="res://Players/player.gd" id="1_6my00"]
 [ext_resource type="Script" path="res://Players/CameraNode.gd" id="2_dvg3d"]
-[ext_resource type="PackedScene" uid="uid://dgonasyuauohu" path="res://Scenes/Weapons/Shotgun/shotgun.tscn" id="3_b436v"]
 [ext_resource type="PackedScene" uid="uid://d0f6dsgvajojw" path="res://Players/ui.tscn" id="3_m25vi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_llil1"]
@@ -33,7 +32,4 @@ spot_range = 20.0
 spot_angle = 20.0
 
 [node name="GunNode" type="Node3D" parent="CameraNode"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, -0.1, -0.25)
-
-[node name="shotgun" parent="CameraNode/GunNode" instance=ExtResource("3_b436v")]
-transform = Transform3D(0.2, 0, 0, 0, 0.199835, -0.00813093, 0, 0.00813093, 0.199835, -0.2, -0.2, -0.1)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -0.1, -0.1, -0.25)

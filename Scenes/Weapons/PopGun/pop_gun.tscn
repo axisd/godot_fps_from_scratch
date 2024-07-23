@@ -1,6 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2rxd8bh4rbn0"]
+[gd_scene load_steps=15 format=3 uid="uid://c2rxd8bh4rbn0"]
 
 [ext_resource type="PackedScene" uid="uid://bkejq61hd72m1" path="res://Assets/Models/popgun/pop_gun.glb" id="1_ifscj"]
+[ext_resource type="AudioStream" uid="uid://bcdgwnu3quada" path="res://Scenes/Weapons/PopGun/Sounds/427598__michorvath__ar15-pistol-shot.wav" id="2_s7ox6"]
+[ext_resource type="Script" path="res://Scenes/Weapons/PopGun/pop_gun.gd" id="2_xn4my"]
+[ext_resource type="AudioStream" uid="uid://caqba52o2ej7y" path="res://Scenes/Weapons/PopGun/Sounds/191847__craigsnedeker__airsoft-colt-pistol-cock-and-shoot.wav" id="3_55eok"]
+[ext_resource type="AudioStream" uid="uid://chcj5k774xvy6" path="res://Scenes/Weapons/PopGun/Sounds/701224__areniporgen__welrod-suppresed-pistol.wav" id="4_6063l"]
+[ext_resource type="AudioStream" uid="uid://8313v38c368k" path="res://Scenes/Weapons/PopGun/Sounds/377145__nioczkus__pistol-draw-unholster.wav" id="5_ecxng"]
 
 [sub_resource type="Animation" id="Animation_f751u"]
 resource_name = "Fire"
@@ -111,19 +116,73 @@ _data = {
 "Reload": SubResource("Animation_0f1j4")
 }
 
+[sub_resource type="Gradient" id="Gradient_0cbcm"]
+offsets = PackedFloat32Array(0, 0.237113, 1)
+colors = PackedColorArray(1, 0.780392, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ntf8n"]
+gradient = SubResource("Gradient_0cbcm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fy3d7"]
+direction = Vector3(0, 0, -1)
+spread = 1.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.02
+scale_max = 0.02
+color_ramp = SubResource("GradientTexture1D_ntf8n")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5qg61"]
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_i8rfi"]
+material = SubResource("StandardMaterial3D_5qg61")
+radial_segments = 16
+rings = 8
+
 [node name="pop_gun" instance=ExtResource("1_ifscj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+script = ExtResource("2_xn4my")
 
 [node name="GunBarrel" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 1.03)
+transform = Transform3D(1, 0, 0, 0, -3.61999e-06, 1, 0, -1, -3.61999e-06, 0, 0, 1.03004)
 
 [node name="Nab" parent="." index="2"]
-transform = Transform3D(0.0848938, 0, 0, 0, 0.0848808, 0.0014816, 0, -0.0014816, 0.0848808, 0, 0.787585, 2.99443)
+transform = Transform3D(0.0848938, 0, 0, 0, 0.0735201, -0.0424469, 0, 0.0424469, 0.0735201, 0, 0.7, 3.3)
 
 [node name="GunCell" parent="." index="3"]
-transform = Transform3D(1.07426, 0, 0, 0, -1.07426, -9.39147e-08, 0, 9.39147e-08, -1.07426, 0, -1.1, 1)
+transform = Transform3D(1.07426, 0, 0, 0, -1.07426, -9.39147e-08, 0, 9.39147e-08, -1.07426, 0, -0.08, 1)
+visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_g1vsr")
 }
+
+[node name="FireSound" type="AudioStreamPlayer" parent="." index="5"]
+stream = ExtResource("2_s7ox6")
+
+[node name="ReloadSound" type="AudioStreamPlayer" parent="." index="6"]
+stream = ExtResource("3_55eok")
+
+[node name="MisFireSound" type="AudioStreamPlayer" parent="." index="7"]
+stream = ExtResource("4_6063l")
+
+[node name="MisInvSound" type="AudioStreamPlayer" parent="." index="8"]
+stream = ExtResource("5_ecxng")
+
+[node name="CellRay" type="RayCast3D" parent="." index="9"]
+target_position = Vector3(0, -1, -200)
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="CellParticle" type="GPUParticles3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
+emitting = false
+amount = 1
+one_shot = true
+process_material = SubResource("ParticleProcessMaterial_fy3d7")
+draw_pass_1 = SubResource("SphereMesh_i8rfi")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

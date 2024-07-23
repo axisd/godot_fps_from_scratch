@@ -10,8 +10,17 @@ const JUMP_VELOCITY = 4.5
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+@onready var weapons_array : Array[Array] = [
+	["popgun" , preload("res://Scenes/Weapons/PopGun/pop_gun.tscn"), load("res://Scenes/Weapons/PopGun/Pic/popgun.png")]		# 0
+	, ["shotgun" , preload("res://Scenes/Weapons/Shotgun/shotgun.tscn"), load("res://Scenes/Weapons/Shotgun/Pic/shotgun_ico.png")]	# 1
+	]
+
+@onready var current_weapon_index : int = 0
+		
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	$CameraNode/GunNode.add_child(weapons_array[current_weapon_index][1].instantiate())
+	$CameraNode/Camera/UI/CurrentWeapon.texture = weapons_array[current_weapon_index][2]
 	
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -19,6 +28,37 @@ func _input(event):
 		
 	if event.is_action_pressed("esc"):
 		get_tree().quit()
+		
+	if event.is_action_pressed("change_weapon_down"):
+		var check_w_index : int = current_weapon_index
+		if current_weapon_index == weapons_array.size() - 1:
+			current_weapon_index = 0			
+		else:
+			current_weapon_index += 1
+		
+		if check_w_index != current_weapon_index:
+			var current_weapon_node := $CameraNode/GunNode.get_child(0)
+			$CameraNode/GunNode.remove_child(current_weapon_node)
+			$CameraNode/GunNode.add_child(weapons_array[current_weapon_index][1].instantiate())
+			$CameraNode/Camera/UI/CurrentWeapon.texture = weapons_array[current_weapon_index][2]
+		
+		print("weapon: ", weapons_array[current_weapon_index][0])
+		
+		
+	if event.is_action_pressed("change_weapon_up"):
+		var check_w_index : int = current_weapon_index
+		if current_weapon_index == 0:
+			current_weapon_index = weapons_array.size() - 1
+		else:
+			current_weapon_index -= 1
+			
+		if check_w_index != current_weapon_index:
+			var current_weapon_node := $CameraNode/GunNode.get_child(0)
+			$CameraNode/GunNode.remove_child(current_weapon_node)
+			$CameraNode/GunNode.add_child(weapons_array[current_weapon_index][1].instantiate())
+			$CameraNode/Camera/UI/CurrentWeapon.texture = weapons_array[current_weapon_index][2]
+			
+		print("weapon: ", weapons_array[current_weapon_index][0])
 
 func _physics_process(delta):
 	# Add the gravity.
